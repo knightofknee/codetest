@@ -1,6 +1,16 @@
-function gameOfLife(){}
+ export default class GameOfLife{
+  constructor(initialBoard){
+    this.currentBoard = initialBoard
+  }
+}
 
-gameOfLife.prototype.checkAround = function (board, row, column){
+GameOfLife.prototype.updateBoard = function(newBoard) {
+  this.currentBoard = newBoard
+}
+GameOfLife.prototype.rows = function(){return this.currentBoard.length}
+GameOfLife.prototype.columns = function(){return this.currentBoard[0].length}
+
+GameOfLife.prototype.checkAround = function (board, row, column){
   let count = 0
   for (let i = row - 1; i <= row + 1; i++){
     if (i < 0 || i >= board.length) continue;
@@ -13,7 +23,7 @@ gameOfLife.prototype.checkAround = function (board, row, column){
   return count
 }
 //we only need the row length, since then we can tack on an array however we like. without the row to start though, we cannot access it like an array
-gameOfLife.prototype.createBlankBoard = function (length){
+GameOfLife.prototype.createBlankBoard = function (length){
   let blankBoard = []
   for (let i = 0; i < length; i++){
     blankBoard[i] = []
@@ -21,7 +31,8 @@ gameOfLife.prototype.createBlankBoard = function (length){
   return blankBoard
 }
 
-gameOfLife.prototype.playTurn = function (boardArray){
+GameOfLife.prototype.playTurn = function (boardArray = this.currentBoard){
+  if (boardArray.length < 1) throw new Error('input must be a non-empty array')
   let newBoard = this.createBlankBoard(boardArray.length)
   for (let row = 0; row < boardArray.length; row++){
     for (let column = 0; column < boardArray[0].length; column++){

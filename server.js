@@ -3,10 +3,11 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpack = require('webpack');
 const webpackConfig = require('./webpack.config.js');
 const app = express();
+const path = require('path')
 
 const compiler = webpack(webpackConfig);
 
-app.use(express.static(__dirname + '/client'));
+app.use(express.static(path.join(__dirname, '/client')));
 
 app.use(webpackDevMiddleware(compiler, {
   hot: true,
@@ -21,5 +22,5 @@ app.use(webpackDevMiddleware(compiler, {
 const server = app.listen(3000, function() {
   const host = server.address().address;
   const port = server.address().port;
-  console.log('Example app listening at http://%s:%s', host, port);
+  console.log('Codetest app listening at http://%s:%s', host, port);
 });

@@ -2,10 +2,10 @@ describe("Game", function() {
   var game;
 
   beforeEach(function() {
-    game = new gameOfLife();
+    game = new GameOfLife();
   });
 
-  describe("the counter checking function", function() {
+  describe("the count checking function", function() {
     it("should handle the zero case", function() {
       let count = game.checkAround([[0, 0], [0, 0]], 0, 0)
       expect(count).toEqual(0);
@@ -13,8 +13,27 @@ describe("Game", function() {
     it("should pass this group of test cases", function() {
       let count = game.checkAround([[1, 0], [1, 1]], 1, 1)
       expect(count).toEqual(2);
+      let count2 = game.checkAround([[1, 0, 1], [1, 1, 1], [0, 0, 1]], 1, 1)
+      expect(count2).toEqual(5);
     });
   })
+
+  describe("the blank board function", function() {
+    it("should pass this group of test cases", function() {
+      let newBoard = game.createBlankBoard(2)
+      expect(newBoard).toEqual([[], []]);
+      let newBoard2 = game.createBlankBoard([[1, 0, 1], [1, 1, 1], [0, 0, 1]].length)
+      expect(newBoard2).toEqual([[], [], []]);
+    });
+  })
+  // stable example:
+// 0	1	1	1	0
+// 1	0	1	0	1
+// 1	1	0	1	1
+// 1	0	1	0	1
+// 0	1	1	1	0
+
+
 
   //   it("should indicate that the song is currently paused", function() {
   //     expect(player.isPlaying).toBeFalsy();
