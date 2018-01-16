@@ -12,3 +12,7 @@ npm run compile
 Run server-side:
 
 npm start
+
+test with jasmine:
+
+npm test
